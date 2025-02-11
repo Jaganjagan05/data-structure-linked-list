@@ -1,0 +1,43 @@
+Given two linked lists (L1 & L2), your task is to complete the function makeUnion(), which returns the union list of two linked lists. This union list should include all the distinct elements only and it should be sorted in ascending order.
+
+Examples:
+
+Input: L1 = 9->6->4->2->3->8, L2 = 1->2->8->6->2
+Output: 1 -> 2 -> 3 -> 4 -> 6 -> 8 -> 9
+
+Explanation: All the distinct numbers from two lists, when sorted form the list in the output. 
+Input: L1 = 1->5->1->2->2->5, L2 = 4->5->6->7->1
+Output: 1 -> 2 -> 4 -> 5 -> 6 -> 7
+
+Explaination: All the distinct numbers from two lists, when sorted forms the list in the output.
+Expected Time Complexity: O((n+m)*Log(n+m))
+Expected Space Complexity: O(n+m)
+
+Constraints:
+1<=size of both linked lists<=105
+1<= data of nodes<=105
+
+class Solution {
+    public static Node findUnion(Node head1, Node head2) {
+        // Add your code here.
+        TreeSet<Integer> set=new TreeSet<>();
+        Node temp1=head1;
+        Node temp2=head2;
+        while(temp1!=null){
+            set.add(temp1.data);
+            temp1=temp1.next;
+        }
+        while(temp2!=null){
+            set.add(temp2.data);
+            temp2=temp2.next;
+        }
+        Node head=new Node(-1);
+        Node curr=head;
+        for(int it:set){
+            Node newnode=new Node(it);
+            curr.next=newnode;
+            curr=curr.next;
+        }
+        return head.next;
+    }
+}
