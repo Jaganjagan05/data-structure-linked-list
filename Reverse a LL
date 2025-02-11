@@ -1,0 +1,47 @@
+Given the head of a linked list, the task is to reverse this list and return the reversed head.
+
+Examples:
+
+Input: head: 1 -> 2 -> 3 -> 4 -> NULL
+Output: head: 4 -> 3 -> 2 -> 1 -> NULL
+Explanation:
+
+Input: head: 2 -> 7 -> 10 -> 9 -> 8 -> NULL
+Output: head: 8 -> 9 -> 10 -> 7 -> 2 -> NULL
+Explanation:
+
+Input: head: 2 -> NULL
+Output: 2 -> NULL
+Explanation:
+
+Constraints:
+1 <= number of nodes, data of nodes <= 105
+
+
+
+// function Template for Java
+
+/* linked list node class:
+
+class Node {
+    int data;
+    Node next;
+    Node(int value) {
+        this.value = value;
+    }
+}
+
+*/
+
+class Solution {
+    // Function to reverse a linked list.
+    Node reverseList(Node head) {
+        if(head==null || head.next==null) return head;
+        Node newnode = reverseList(head.next);
+        Node front=head.next;
+        front.next=head;
+        head.next=null;
+        return newnode;
+        // code here
+    }
+}
