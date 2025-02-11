@@ -1,0 +1,83 @@
+Given the head of two singly linked lists num1 and num2 representing two non-negative integers. The task is to return the head of the linked list representing the sum of these two numbers.
+
+For example, num1 represented by the linked list : 1 -> 9 -> 0, similarly num2 represented by the linked list: 2 -> 5. Sum of these two numbers is represented by 2 -> 1 -> 5.
+
+Note: There can be leading zeros in the input lists, but there should not be any leading zeros in the output list.
+
+Examples:
+
+Input: num1 = 4 - > 5, num2 = 3 -> 4 -> 5
+Output:  3 -> 9 -> 0
+ 
+Explanation: Given numbers are 45 and 345. There sum is 390.
+Input: num1 = 0 -> 0 -> 6 -> 3, num2 = 0 -> 7 
+Output: 7 -> 0 
+ 
+Explanation: Given numbers are 63 and 7. There sum is 70.
+Constraints:
+1 <= size of both linked lists <= 106
+0 <= elements of both linked lists <= 9
+
+/* node for linked list
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+
+*/
+
+class Solution {
+    // Function to add two numbers represented by linked list.
+    static Node addTwoLists(Node num1, Node num2) {
+        // Reverse both input lists
+        num1 = rev(num1);
+        num2 = rev(num2);
+        
+        int car = 0; // Carry
+        Node dummy = new Node(0); // Dummy node to simplify list construction
+        Node current = dummy; // Pointer for building the result list
+
+        // Add the numbers represented by the lists
+        while (num1 != null || num2 != null || car != 0) {
+            int sum = car;
+            
+            if (num1 != null) {
+                sum += num1.data;
+                num1 = num1.next;
+            }
+            
+            if (num2 != null) {
+                sum += num2.data;
+                num2 = num2.next;
+            }
+            
+            // Create a new node for the current digit
+            current.next = new Node(sum % 10);
+            current = current.next;
+            
+            // Update carry
+            car = sum / 10;
+        }
+        
+        // Reverse the result list to restore correct order
+        return rev(dummy.next);
+    }
+
+    // Helper method to reverse a linked list
+    private static Node rev(Node head) {
+        Node prev = null;
+        while (head != null) {
+            Node next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+}
